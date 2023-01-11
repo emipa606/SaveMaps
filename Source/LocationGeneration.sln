@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationGeneration", "LocationGeneration\LocationGeneration.csproj", "{3C7DF266-AEB0-4A52-A422-AC1C42D9BA5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C7DF266-AEB0-4A52-A422-AC1C42D9BA5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C7DF266-AEB0-4A52-A422-AC1C42D9BA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C7DF266-AEB0-4A52-A422-AC1C42D9BA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C7DF266-AEB0-4A52-A422-AC1C42D9BA5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F62F43D1-5F6E-490F-9AEB-9772FFBDA9C7}
+	EndGlobalSection
+EndGlobal
