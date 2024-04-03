@@ -5,8 +5,7 @@ using Verse;
 
 namespace LocationGeneration;
 
-[HarmonyPatch(typeof(SettlementDefeatUtility))]
-[HarmonyPatch("CheckDefeated")]
+[HarmonyPatch(typeof(SettlementDefeatUtility), nameof(SettlementDefeatUtility.CheckDefeated))]
 public static class Patch_SettlementDefeatUtility_IsDefeated
 {
     private static bool IsDefeated(Map map, Faction faction)

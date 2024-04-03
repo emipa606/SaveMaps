@@ -11,7 +11,7 @@ public class GetOrGenerateMapPatch
     public static bool caravanArrival;
     public static LocationData locationData;
 
-    public static void Prefix(ref Caravan caravan, ref Settlement settlement)
+    public static void Prefix(ref Settlement settlement)
     {
         var filePreset = SettlementGeneration.GetPresetFor(settlement, out var locationDef);
         if (filePreset == null)

@@ -2,16 +2,12 @@
 
 namespace LocationGeneration;
 
-public class MapComponentGeneration : MapComponent
+public class MapComponentGeneration(Map map) : MapComponent(map)
 {
     public bool doGeneration;
     public LocationDef locationDef;
     public string path = "";
     public bool reFog;
-
-    public MapComponentGeneration(Map map) : base(map)
-    {
-    }
 
     public override void MapComponentUpdate()
     {

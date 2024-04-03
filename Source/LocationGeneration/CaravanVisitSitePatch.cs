@@ -4,8 +4,7 @@ using Verse;
 
 namespace LocationGeneration;
 
-[HarmonyPatch(typeof(CaravanArrivalAction_VisitSite))]
-[HarmonyPatch("Arrived")]
+[HarmonyPatch(typeof(CaravanArrivalAction_VisitSite), nameof(CaravanArrivalAction_VisitSite.Arrived))]
 public static class CaravanVisitSitePatch
 {
     public static void Prefix()

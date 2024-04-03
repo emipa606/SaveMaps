@@ -4,16 +4,11 @@ using Verse;
 
 namespace LocationGeneration;
 
-public class WorldComponentGeneration : WorldComponent
+public class WorldComponentGeneration(World world) : WorldComponent(world)
 {
     private List<int> intKeys;
     private List<IntVec3> intVecValues;
-    public Dictionary<int, IntVec3> tileSizes;
-
-    public WorldComponentGeneration(World world) : base(world)
-    {
-        tileSizes = new Dictionary<int, IntVec3>();
-    }
+    public Dictionary<int, IntVec3> tileSizes = new Dictionary<int, IntVec3>();
 
     public override void ExposeData()
     {

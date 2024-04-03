@@ -7,10 +7,10 @@ namespace LocationGeneration;
 
 public static class BlueprintUtility
 {
-    public static List<IntVec3> terrainKeys = new List<IntVec3>();
-    public static List<IntVec3> roofsKeys = new List<IntVec3>();
-    public static List<TerrainDef> terrainValues = new List<TerrainDef>();
-    public static List<RoofDef> roofsValues = new List<RoofDef>();
+    public static List<IntVec3> terrainKeys = [];
+    public static List<IntVec3> roofsKeys = [];
+    public static List<TerrainDef> terrainValues = [];
+    public static List<RoofDef> roofsValues = [];
 
     public static string GetConfigPath()
     {
@@ -114,7 +114,7 @@ public static class BlueprintUtility
         {
             var riverOffsetSize = riverOffsetMap.Length;
             Scribe_Values.Look(ref riverOffsetSize, "riverOffsetSize");
-            DataExposeUtility.ByteArray(ref riverOffsetMap, "riverOffsetMap");
+            DataExposeUtility.LookByteArray(ref riverOffsetMap, "riverOffsetMap");
         }
 
         Scribe.saver.FinalizeSaving();

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using LudeonTK;
 using RimWorld;
 using Verse;
 
@@ -45,7 +46,7 @@ public static class Actions
     [DebugAction("Save Maps", "Load blueprint")]
     public static void LoadBlueprint()
     {
-        var unused = LoadedModManager.RunningMods
+        _ = LoadedModManager.RunningMods
             .FirstOrDefault(x => x.assemblies.loadedAssemblies.Contains(Assembly.GetExecutingAssembly()))?.Name;
         var path = BlueprintUtility.GetConfigPath();
         var directoryInfo = new DirectoryInfo(path);
@@ -78,7 +79,7 @@ public static class Actions
     [DebugAction("Save Maps", "Load blueprint (override)")]
     public static void LoadBlueprintDestroyEverything()
     {
-        var unused = LoadedModManager.RunningMods
+        _ = LoadedModManager.RunningMods
             .FirstOrDefault(x => x.assemblies.loadedAssemblies.Contains(Assembly.GetExecutingAssembly()))
             ?.Name;
         var path = BlueprintUtility.GetConfigPath();
@@ -112,7 +113,7 @@ public static class Actions
     [DebugAction("Save Maps", "Load blueprint (override, except colonists)")]
     public static void LoadBlueprintDestroyEverythingExceptColonists()
     {
-        var unused = LoadedModManager.RunningMods
+        _ = LoadedModManager.RunningMods
             .FirstOrDefault(x => x.assemblies.loadedAssemblies.Contains(Assembly.GetExecutingAssembly()))?.Name;
         var path = BlueprintUtility.GetConfigPath();
         var directoryInfo = new DirectoryInfo(path);

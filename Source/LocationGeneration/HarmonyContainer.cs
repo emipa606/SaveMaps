@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Reflection;
+using HarmonyLib;
 using Verse;
 
 namespace LocationGeneration;
@@ -8,7 +9,6 @@ internal static class HarmonyContainer
 {
     static HarmonyContainer()
     {
-        var harmony = new Harmony("LocationGeneration.HarmonyPatches");
-        harmony.PatchAll();
+        new Harmony("LocationGeneration.HarmonyPatches").PatchAll(Assembly.GetExecutingAssembly());
     }
 }

@@ -12,7 +12,7 @@ public class SettlementOptionModExtension : DefModExtension
 
     public IntRange numberOfSettlers;
 
-    public List<PawnGenOption> pawnsToGenerate = new List<PawnGenOption>();
+    public List<PawnGenOption> pawnsToGenerate = [];
 
     public bool removeVanillaGeneratedPawns;
 

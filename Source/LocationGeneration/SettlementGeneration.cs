@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
+using Unity.Collections;
 using Verse;
 using Verse.AI;
 
@@ -11,10 +14,11 @@ namespace LocationGeneration;
 
 public static class SettlementGeneration
 {
-    public static List<IntVec3> terrainKeys = new List<IntVec3>();
-    public static List<TerrainDef> terrainValues = new List<TerrainDef>();
-    public static List<IntVec3> roofsKeys = new List<IntVec3>();
-    public static List<RoofDef> roofsValues = new List<RoofDef>();
+    public static List<IntVec3> terrainKeys = [];
+    public static List<TerrainDef> terrainValues = [];
+    public static List<IntVec3> roofsKeys = [];
+    public static List<RoofDef> roofsValues = [];
+    private static readonly FieldInfo fogGridField = AccessTools.Field(typeof(FogGrid), "fogGrid");
 
     public static LocationDef GetLocationDefForMapParent(MapParent mapParent)
     {
@@ -154,7 +158,7 @@ public static class SettlementGeneration
                 }
             }
 
-            if (locationDef is { factionDefForNPCsAndTurrets: { } })
+            if (locationDef is { factionDefForNPCsAndTurrets: not null })
             {
                 faction = Find.FactionManager.FirstFactionOfDef(locationDef.factionDefForNPCsAndTurrets);
             }
@@ -193,7 +197,7 @@ public static class SettlementGeneration
             var riverOffsetSize = 0;
             Scribe_Values.Look(ref riverOffsetSize, "riverOffsetSize");
             var riverOffsetMap = new byte[riverOffsetSize];
-            DataExposeUtility.ByteArray(ref riverOffsetMap, "riverOffsetMap");
+            DataExposeUtility.LookByteArray(ref riverOffsetMap, "riverOffsetMap");
             Scribe.loader.FinalizeLoading();
 
 
@@ -218,15 +222,18 @@ public static class SettlementGeneration
 
                 map.ConstructComponents();
                 var cellIndices = map.cellIndices;
-                if (map.fogGrid.fogGrid == null)
+                if (fogGridField.GetValue(map.fogGrid) == null)
                 {
-                    map.fogGrid.fogGrid = new bool[cellIndices.NumGridCells];
+                    fogGridField.SetValue(map.fogGrid, new NativeArray<bool>[cellIndices.NumGridCells]);
                 }
 
+                var fogGrid = (NativeArray<bool>)fogGridField.GetValue(map.fogGrid);
                 foreach (var allCell in map.AllCells)
                 {
-                    map.fogGrid.fogGrid[cellIndices.CellToIndex(allCell)] = true;
+                    fogGrid[cellIndices.CellToIndex(allCell)] = true;
                 }
+
+                fogGridField.SetValue(map.fogGrid, fogGrid);
 
                 if (Current.ProgramState == ProgramState.Playing)
                 {
@@ -258,7 +265,7 @@ public static class SettlementGeneration
 
             if (corpses is null)
             {
-                corpses = new List<Corpse>();
+                corpses = [];
             }
             else
             {
@@ -267,7 +274,7 @@ public static class SettlementGeneration
 
             if (pawnCorpses is null)
             {
-                pawnCorpses = new List<Pawn>();
+                pawnCorpses = [];
             }
             else
             {
@@ -276,7 +283,7 @@ public static class SettlementGeneration
 
             if (pawns is null)
             {
-                pawns = new List<Pawn>();
+                pawns = [];
             }
             else
             {
@@ -285,7 +292,7 @@ public static class SettlementGeneration
 
             if (buildings is null)
             {
-                buildings = new List<Building>();
+                buildings = [];
             }
             else
             {
@@ -294,7 +301,7 @@ public static class SettlementGeneration
 
             if (things is null)
             {
-                things = new List<Thing>();
+                things = [];
             }
             else
             {
@@ -303,7 +310,7 @@ public static class SettlementGeneration
 
             if (filths is null)
             {
-                filths = new List<Filth>();
+                filths = [];
             }
             else
             {
@@ -312,7 +319,7 @@ public static class SettlementGeneration
 
             if (plants is null)
             {
-                plants = new List<Plant>();
+                plants = [];
             }
             else
             {
@@ -799,7 +806,7 @@ public static class SettlementGeneration
                 }
                 else
                 {
-                    containerPlaces[c] = new List<IntVec3> { pos };
+                    containerPlaces[c] = [pos];
                 }
             }
         }

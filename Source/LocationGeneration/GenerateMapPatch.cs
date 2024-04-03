@@ -11,12 +11,12 @@ public static class GenerateMapPatch
     public static void Prefix(ref IntVec3 mapSize, MapParent parent)
     {
         var worldComp = Find.World.GetComponent<WorldComponentGeneration>();
-        if (!worldComp.tileSizes.ContainsKey(parent.Tile))
+        if (!worldComp.tileSizes.TryGetValue(parent.Tile, out var siz))
         {
             return;
         }
 
-        mapSize = worldComp.tileSizes[parent.Tile];
+        mapSize = siz;
         worldComp.tileSizes.Remove(parent.Tile);
         Log.Message($"Changing map size to {mapSize}");
     }
