@@ -439,6 +439,18 @@ public static class SettlementGeneration
                         if (position.InBounds(map))
                         {
                             GenSpawn.Spawn(building, position, map, building.Rotation);
+                            if (building is IThingHolder holder)
+                            {
+                                var innerThings = holder.GetDirectlyHeldThings();
+                                foreach (var thing in innerThings)
+                                {
+                                    if (thing is Corpse corpse && corpse.InnerPawn is null)
+                                    {
+                                        corpse.InnerPawn = PawnGenerator.GeneratePawn(
+                                            new PawnGenerationRequest(PawnKindDefOf.Villager, faction));
+                                    }
+                                }
+                            }
                         }
                     }
                     catch (Exception ex)
