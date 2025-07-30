@@ -7,7 +7,7 @@ namespace LocationGeneration;
 public class Dialog_SaveEverything : Window
 {
     private readonly bool includePawns;
-    protected string curName;
+    private string curName;
 
     private bool focusedRenameField;
 
@@ -27,8 +27,8 @@ public class Dialog_SaveEverything : Window
 
     private bool AcceptsInput => startAcceptingInputAtFrame <= Time.frameCount;
 
-    protected int MaxNameLength => 28;
-    public override Vector2 InitialSize => new Vector2(280f, 175f);
+    private static int MaxNameLength => 28;
+    public override Vector2 InitialSize => new(280f, 175f);
 
     public void WasOpenedByHotkey()
     {
@@ -47,13 +47,14 @@ public class Dialog_SaveEverything : Window
 
         GUI.SetNextControlName("RenameField");
         var text = Widgets.TextField(new Rect(0f, 15f, inRect.width, 35f), curName);
-        if (AcceptsInput && text.Length < MaxNameLength)
+        switch (AcceptsInput)
         {
-            curName = text;
-        }
-        else if (!AcceptsInput)
-        {
-            ((TextEditor)GUIUtility.GetStateObject(typeof(TextEditor), GUIUtility.keyboardControl)).SelectAll();
+            case true when text.Length < MaxNameLength:
+                curName = text;
+                break;
+            case false:
+                ((TextEditor)GUIUtility.GetStateObject(typeof(TextEditor), GUIUtility.keyboardControl)).SelectAll();
+                break;
         }
 
         if (!focusedRenameField)
@@ -68,7 +69,7 @@ public class Dialog_SaveEverything : Window
             return;
         }
 
-        var acceptanceReport = NameIsValid(curName);
+        var acceptanceReport = nameIsValid(curName);
         if (!acceptanceReport.Accepted)
         {
             if (acceptanceReport.Reason.NullOrEmpty())
@@ -81,11 +82,11 @@ public class Dialog_SaveEverything : Window
             return;
         }
 
-        SetName(curName);
+        setName(curName);
         Find.WindowStack.TryRemove(this);
     }
 
-    protected void SetName(string nameToCheck)
+    private void setName(string nameToCheck)
     {
         name = GenText.SanitizeFilename(nameToCheck);
         var map = Find.CurrentMap;
@@ -93,7 +94,7 @@ public class Dialog_SaveEverything : Window
         BlueprintUtility.SaveEverything(path, map, includePawns);
     }
 
-    protected AcceptanceReport NameIsValid(string nameToCheck)
+    private static AcceptanceReport nameIsValid(string nameToCheck)
     {
         return nameToCheck.Length != 0;
     }

@@ -1,4 +1,4 @@
-# SaveMaps
+# [Save Maps (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=2916523481)
 
 ![Image](https://i.imgur.com/buuPQel.png)
 
@@ -6,12 +6,10 @@ Update of Jacob, Taranchuks mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=2543713263
 
 ![Image](https://i.imgur.com/pufA0kM.png)
-
 	
 ![Image](https://i.imgur.com/Z4GOv8H.png)
 
 ![Image](https://i.imgur.com/p7Fv1Z6.gif)
-
 ![Image](https://i.imgur.com/2LaNvG9.png)
 
 Save Maps is a mod that allows you to save your maps at any time and load them at any time across any save.
@@ -28,8 +26,7 @@ Do you only like to play on a certain type of map, and spend way too much time w
 How about your bases? Have you ever built a pretty cool base and wished that you could use the same base but on a different map or a different save?
 
 If you answered yes to any of these questions, then you and I have experienced similar problems, and now we have a solution.
-![Image](https://i.imgur.com/74MXZKe.png)
- 
+![Image](https://i.imgur.com/74MXZKe.png) 
 
 - Save Maps saves map blueprints in the game's configuration files location so that they will NEVER be touched or altered by the Steam Workshop. You will NEVER lose your map files as a result of weirdness with Workshop updates, or if you were to accidentally unsubscribe from the mod.
 
@@ -54,25 +51,25 @@ In order to use Save Maps, you must first enable Dev Mode in the options menu.
 
 In the Dev Menu, you will notice a new category called “Save Maps” which will have all of the buttons you control the mod with.
 
-[u]**Save Everything:**[/u]
+<ins>**Save Everything:**</ins>
 This option will save the map and everything on it including items and colonists as a blueprint to be loaded.
 
-[u]**Save Everything w/o Colonists:**[/u]
+<ins>**Save Everything w/o Colonists:**</ins>
 This option will save the map and everything on it including items but excluding colonists as a blueprint to be loaded.
 
-[u]**Save in Home Area with Colonists:**[/u]
+<ins>**Save in Home Area with Colonists:**</ins>
 This option will save all created structures within the home area as a blueprint that can be transplanted to another map. Colonists will also be saved.
 
-[u]**Save in Home Area w/o Colonists:**[/u]
+<ins>**Save in Home Area w/o Colonists:**</ins>
 This option will save all created structures within the home area as a blueprint that can be transplanted to another map. Colonists will not be saved.
 
-[u]**Load Blueprint:**[/u]
+<ins>**Load Blueprint:**</ins>
 This option will load a saved blueprint, and take all items and colonists with you to the new map.
 
-[u]**Load Blueprint (override):**[/u]
+<ins>**Load Blueprint (override):**</ins>
 This option will load a saved blueprint, but will not carry over anything from the current map to the loaded map.
 
-[u]**Load Blueprint (override, except colonists):**[/u]
+<ins>**Load Blueprint (override, except colonists):**</ins>
 This option will load a saved blueprint, and will only carry over your colonists but no items to the new map. 
 ![Image](https://i.imgur.com/ConbpFq.png)
 
@@ -84,8 +81,7 @@ Taranchuk - All code
 The Duck Gamer - Workshop art
 HandsomeAwkward - Playtesting, workshop description
 
-https://discord.gg/7befJWr9xS]![Image](https://i.imgur.com/cfoFEMA.png)
-
+[![Image](https://i.imgur.com/cfoFEMA.png)](https://discord.gg/7befJWr9xS)
 	
 ![Image](https://i.imgur.com/PwoNOj4.png)
 
@@ -93,13 +89,12 @@ https://discord.gg/7befJWr9xS]![Image](https://i.imgur.com/cfoFEMA.png)
 
 -  See if the the error persists if you just have this mod and its requirements active.
 -  If not, try adding your other mods until it happens again.
--  Post your error-log using https://steamcommunity.com/workshop/filedetails/?id=818773962]HugsLib or the standalone https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404]Uploader and command Ctrl+F12
+-  Post your error-log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
--  Use https://github.com/RimSort/RimSort/releases/latest]RimSort to sort your mods
+-  Use [RimSort](https://github.com/RimSort/RimSort/releases/latest) to sort your mods
 
+ 
 
-
-https://steamcommunity.com/sharedfiles/filedetails/changelog/2916523481]![Image](https://img.shields.io/github/v/release/emipa606/SaveMaps?label=latest%20version&style=plastic&color=9f1111&labelColor=black)
-
+[![Image](https://img.shields.io/github/v/release/emipa606/SaveMaps?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2916523481) | tags:  map transfer

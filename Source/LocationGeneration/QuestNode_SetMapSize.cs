@@ -5,8 +5,8 @@ namespace LocationGeneration;
 
 public class QuestNode_SetMapSize : QuestNode
 {
-    public SlateRef<IntVec3> mapSize;
-    public SlateRef<int> tile;
+    private SlateRef<IntVec3> mapSize;
+    private SlateRef<int> tile;
 
     protected override bool TestRunInt(Slate slate)
     {

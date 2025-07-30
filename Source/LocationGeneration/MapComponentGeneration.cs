@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Verse;
 
 namespace LocationGeneration;
@@ -33,13 +34,14 @@ public class MapComponentGeneration(Map map) : MapComponent(map)
             }
             else
             {
-                FloodFillerFog.FloodUnfog(map.AllCells.Where(x => x.Roofed(map) is false).First(), map);
+                FloodFillerFog.FloodUnfog(map.AllCells.First(x => !x.Roofed(map)), map);
             }
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
             Log.Error($"Error refogging map: {e}");
         }
+
         reFog = false;
     }
 

@@ -2,5 +2,13 @@
   "Continued": true,
   "CanAdd": "0",
   "CanRemove": "0",
-  "PreviewVersion": "1.5"
+  "PreviewVersion": "1.6",
+  "LastXmlCleaning": "2025-07-30T22:47:56.8552047+02:00",
+  "SocialImageSet": true,
+  "Patches": false,
+  "Defs": false,
+  "Assemblies": true,
+  "LinesOfCode": 73211,
+  "LinesOfXML": 0,
+  "SearchTags": " map transfer"
 }

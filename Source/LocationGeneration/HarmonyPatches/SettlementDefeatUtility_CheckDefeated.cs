@@ -6,9 +6,9 @@ using Verse;
 namespace LocationGeneration;
 
 [HarmonyPatch(typeof(SettlementDefeatUtility), nameof(SettlementDefeatUtility.CheckDefeated))]
-public static class Patch_SettlementDefeatUtility_IsDefeated
+public static class SettlementDefeatUtility_CheckDefeated
 {
-    private static bool IsDefeated(Map map, Faction faction)
+    private static bool isDefeated(Map map, Faction faction)
     {
         var list = map.mapPawns.SpawnedPawnsInFaction(faction);
         foreach (var pawn in list)
@@ -24,6 +24,6 @@ public static class Patch_SettlementDefeatUtility_IsDefeated
 
     private static bool Prefix(Settlement factionBase)
     {
-        return !factionBase.HasMap || IsDefeated(factionBase.Map, factionBase.Faction);
+        return !factionBase.HasMap || isDefeated(factionBase.Map, factionBase.Faction);
     }
 }

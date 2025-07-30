@@ -14,17 +14,17 @@ namespace LocationGeneration;
 
 public static class SettlementGeneration
 {
-    public static List<IntVec3> terrainKeys = [];
-    public static List<TerrainDef> terrainValues = [];
-    public static List<IntVec3> roofsKeys = [];
-    public static List<RoofDef> roofsValues = [];
+    private static List<IntVec3> terrainKeys = [];
+    private static List<TerrainDef> terrainValues = [];
+    private static List<IntVec3> roofsKeys = [];
+    private static List<RoofDef> roofsValues = [];
     private static readonly FieldInfo fogGridField = AccessTools.Field(typeof(FogGrid), "fogGrid");
 
-    public static LocationDef GetLocationDefForMapParent(MapParent mapParent)
+    private static LocationDef GetLocationDefForMapParent(MapParent mapParent)
     {
-        if (GetOrGenerateMapPatch.locationData?.locationDef != null)
+        if (SettlementUtility_AttackNow.locationData?.locationDef != null)
         {
-            return GetOrGenerateMapPatch.locationData.locationDef;
+            return SettlementUtility_AttackNow.locationData.locationDef;
         }
 
         foreach (var locationDef in DefDatabase<LocationDef>.AllDefs)
@@ -72,7 +72,7 @@ public static class SettlementGeneration
         return file;
     }
 
-    public static bool IsChunk(Thing item)
+    private static bool isChunk(Thing item)
     {
         if (item?.def?.thingCategories == null)
         {
@@ -90,17 +90,17 @@ public static class SettlementGeneration
         return false;
     }
 
-    public static IntVec3 GetCellCenterFor(List<IntVec3> cells)
+    private static IntVec3 getCellCenterFor(List<IntVec3> cells)
     {
-        var x_Averages = cells.OrderBy(x => x.x);
-        var x_average = x_Averages.ElementAt(x_Averages.Count() / 2).x;
-        var z_Averages = cells.OrderBy(x => x.z);
-        var z_average = z_Averages.ElementAt(z_Averages.Count() / 2).z;
-        var middleCell = new IntVec3(x_average, 0, z_average);
+        var xAverages = cells.OrderBy(x => x.x);
+        var xAverage = xAverages.ElementAt(xAverages.Count() / 2).x;
+        var zAverages = cells.OrderBy(x => x.z);
+        var zAverage = zAverages.ElementAt(zAverages.Count() / 2).z;
+        var middleCell = new IntVec3(xAverage, 0, zAverage);
         return middleCell;
     }
 
-    public static IntVec3 GetOffsetPosition(LocationDef locationDef, IntVec3 cell, IntVec3 offset)
+    private static IntVec3 getOffsetPosition(LocationDef locationDef, IntVec3 cell, IntVec3 offset)
     {
         if (locationDef == null)
         {
@@ -118,8 +118,8 @@ public static class SettlementGeneration
     public static void DoSettlementGeneration(Map map, string path, LocationDef locationDef,
         Faction faction, bool disableFog, bool destroyEverything = false, bool excludeColonists = false)
     {
-        GetOrGenerateMapPatch.locationData = null;
-        GetOrGenerateMapPatch.caravanArrival = false;
+        SettlementUtility_AttackNow.locationData = null;
+        SettlementUtility_AttackNow.CaravanArrival = false;
         var mapComp = map.GetComponent<MapComponentGeneration>();
         try
         {
@@ -272,14 +272,7 @@ public static class SettlementGeneration
                 corpses.RemoveAll(x => x is null);
             }
 
-            if (pawnCorpses is null)
-            {
-                pawnCorpses = [];
-            }
-            else
-            {
-                pawnCorpses.RemoveAll(x => x is null);
-            }
+            pawnCorpses?.RemoveAll(x => x is null);
 
             if (pawns is null)
             {
@@ -328,7 +321,7 @@ public static class SettlementGeneration
 
             var cells = new List<IntVec3>(tilesToSpawnPawnsOnThem);
             cells.AddRange(buildings.Select(x => x.Position).ToList());
-            var centerCell = GetCellCenterFor(cells);
+            var centerCell = getCellCenterFor(cells);
             var offset = locationDef is { disableCenterCellOffset: false }
                 ? map.Center - centerCell
                 : IntVec3.Zero;
@@ -339,7 +332,7 @@ public static class SettlementGeneration
                 {
                     try
                     {
-                        var position = GetOffsetPosition(locationDef, corpse.Position, offset);
+                        var position = getOffsetPosition(locationDef, corpse.Position, offset);
                         if (position.InBounds(map))
                         {
                             GenSpawn.Spawn(corpse, position, map);
@@ -358,7 +351,7 @@ public static class SettlementGeneration
                 {
                     try
                     {
-                        var position = GetOffsetPosition(locationDef, pawn.Position, offset);
+                        var position = getOffsetPosition(locationDef, pawn.Position, offset);
                         if (!position.InBounds(map))
                         {
                             continue;
@@ -384,7 +377,7 @@ public static class SettlementGeneration
             {
                 foreach (var tile in tilesToSpawnPawnsOnThem)
                 {
-                    var position = GetOffsetPosition(locationDef, tile, offset);
+                    var position = getOffsetPosition(locationDef, tile, offset);
                     try
                     {
                         if (position.InBounds(map))
@@ -393,7 +386,7 @@ public static class SettlementGeneration
                             foreach (var thing in things2)
                             {
                                 if (thing is Building || thing is Plant plant && plant.def != ThingDefOf.Plant_Grass ||
-                                    IsChunk(thing))
+                                    isChunk(thing))
                                 {
                                     thingsToDestroy.Add(thing);
                                 }
@@ -433,7 +426,7 @@ public static class SettlementGeneration
             {
                 foreach (var building in buildings)
                 {
-                    var position = GetOffsetPosition(locationDef, building.Position, offset);
+                    var position = getOffsetPosition(locationDef, building.Position, offset);
                     try
                     {
                         if (position.InBounds(map))
@@ -444,7 +437,7 @@ public static class SettlementGeneration
                                 var innerThings = holder.GetDirectlyHeldThings();
                                 foreach (var thing in innerThings)
                                 {
-                                    if (thing is Corpse corpse && corpse.InnerPawn is null)
+                                    if (thing is Corpse { InnerPawn: null } corpse)
                                     {
                                         corpse.InnerPawn = PawnGenerator.GeneratePawn(
                                             new PawnGenerationRequest(PawnKindDefOf.Villager, faction));
@@ -466,7 +459,7 @@ public static class SettlementGeneration
                 {
                     try
                     {
-                        var position = GetOffsetPosition(locationDef, filth.Position, offset);
+                        var position = getOffsetPosition(locationDef, filth.Position, offset);
                         if (position.InBounds(map))
                         {
                             GenSpawn.Spawn(filth, position, map);
@@ -485,7 +478,7 @@ public static class SettlementGeneration
                 {
                     try
                     {
-                        var position = GetOffsetPosition(locationDef, plant.Position, offset);
+                        var position = getOffsetPosition(locationDef, plant.Position, offset);
                         if (position.InBounds(map) &&
                             map.fertilityGrid.FertilityAt(position) >= plant.def.plant.fertilityMin)
                         {
@@ -506,7 +499,7 @@ public static class SettlementGeneration
                 {
                     try
                     {
-                        var position = GetOffsetPosition(locationDef, thing.Position, offset);
+                        var position = getOffsetPosition(locationDef, thing.Position, offset);
                         if (!position.InBounds(map))
                         {
                             continue;
@@ -515,7 +508,7 @@ public static class SettlementGeneration
                         GenSpawn.Spawn(thing, position, map);
                         if (locationDef is { moveThingsToShelves: true })
                         {
-                            TryDistributeTo(thing, map, containers, faction != Faction.OfPlayer);
+                            tryDistributeTo(thing, map, containers, faction != Faction.OfPlayer);
                         }
                     }
                     catch (Exception ex)
@@ -531,7 +524,7 @@ public static class SettlementGeneration
                 {
                     if (item.IsForbidden(Faction.OfPlayer))
                     {
-                        TryDistributeTo(item, map, containers, faction != Faction.OfPlayer);
+                        tryDistributeTo(item, map, containers, faction != Faction.OfPlayer);
                     }
                 }
             }
@@ -542,7 +535,7 @@ public static class SettlementGeneration
                 {
                     try
                     {
-                        var position = GetOffsetPosition(locationDef, terrain.Key, offset);
+                        var position = getOffsetPosition(locationDef, terrain.Key, offset);
                         if (position.InBounds(map))
                         {
                             map.terrainGrid.SetTerrain(position, terrain.Value);
@@ -561,7 +554,7 @@ public static class SettlementGeneration
                 {
                     try
                     {
-                        var position = GetOffsetPosition(locationDef, roof.Key, offset);
+                        var position = getOffsetPosition(locationDef, roof.Key, offset);
                         if (position.InBounds(map))
                         {
                             map.roofGrid.SetRoof(position, roof.Value);
@@ -593,8 +586,8 @@ public static class SettlementGeneration
                         {
                             if (genStepDef == DefDatabase<GenStepDef>.GetNamed("RocksFromGrid"))
                             {
-                                Rand.Seed = Gen.HashCombineInt(seed, GetSeedPart(mapGeneratorDef, genStepDef));
-                                GenStep_RocksFromGridCustom.hilliness = hilliness;
+                                Rand.Seed = Gen.HashCombineInt(seed, getSeedPart(mapGeneratorDef, genStepDef));
+                                GenStep_RocksFromGridCustom.Hilliness = hilliness;
                                 var genStep = new GenStep_RocksFromGridCustom();
                                 genStep.Generate(map, default);
                             }
@@ -697,7 +690,7 @@ public static class SettlementGeneration
                 }
             }
 
-            if (disableFog != true)
+            if (!disableFog)
             {
                 try
                 {
@@ -727,15 +720,16 @@ public static class SettlementGeneration
 
             mapComp.doGeneration = false;
             mapComp.path = null;
-            GetOrGenerateMapPatch.caravanArrival = false;
+            SettlementUtility_AttackNow.CaravanArrival = false;
             map.regionAndRoomUpdater.Enabled = true;
 
             if (riverOffsetSize <= 0)
             {
-                tilesToSpawnPawnsOnThem.Select(x => GetOffsetPosition(locationDef, x, offset)).ToHashSet();
+                tilesToSpawnPawnsOnThem.Select(x => getOffsetPosition(locationDef, x, offset)).ToHashSet();
                 return;
             }
-            tilesToSpawnPawnsOnThem.Select(x => GetOffsetPosition(locationDef, x, offset)).ToHashSet();
+
+            tilesToSpawnPawnsOnThem.Select(x => getOffsetPosition(locationDef, x, offset)).ToHashSet();
             return;
         }
         catch (Exception ex)
@@ -748,7 +742,7 @@ public static class SettlementGeneration
         map.regionAndRoomUpdater.Enabled = true;
     }
 
-    private static int GetSeedPart(MapGeneratorDef def, GenStepDef genStepDef)
+    private static int getSeedPart(MapGeneratorDef def, GenStepDef genStepDef)
     {
         var seedPart = genStepDef.genStep.SeedPart;
         var num = 0;
@@ -783,7 +777,7 @@ public static class SettlementGeneration
         comp.locationDef = locationDef;
     }
 
-    private static void TryDistributeTo(Thing thing, Map map, List<Thing> containers, bool setForbidden)
+    private static void tryDistributeTo(Thing thing, Map map, List<Thing> containers, bool setForbidden)
     {
         var containerPlaces = new Dictionary<Thing, List<IntVec3>>();
         for (var num = containers.Count - 1; num >= 0; num--)
@@ -831,9 +825,9 @@ public static class SettlementGeneration
             return;
         }
 
-        var choosenPos = positions.RandomElement();
-        containerPlaces[container].Remove(choosenPos);
-        thing.Position = choosenPos;
+        var randomPosition = positions.RandomElement();
+        containerPlaces[container].Remove(randomPosition);
+        thing.Position = randomPosition;
         if (setForbidden)
         {
             thing.SetForbidden(true);

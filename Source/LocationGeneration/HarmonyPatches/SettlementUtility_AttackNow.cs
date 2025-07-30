@@ -5,10 +5,10 @@ using RimWorld.Planet;
 namespace LocationGeneration;
 
 [HarmonyPatch(typeof(SettlementUtility), "AttackNow")]
-public class GetOrGenerateMapPatch
+public class SettlementUtility_AttackNow
 {
-    public static bool customSettlementGeneration;
-    public static bool caravanArrival;
+    public static bool CustomSettlementGeneration;
+    public static bool CaravanArrival;
     public static LocationData locationData;
 
     public static void Prefix(ref Settlement settlement)
@@ -20,14 +20,14 @@ public class GetOrGenerateMapPatch
         }
 
         locationData = new LocationData { file = filePreset, locationDef = locationDef };
-        customSettlementGeneration = true;
+        CustomSettlementGeneration = true;
     }
 
-    public static void Postfix(ref Caravan caravan, ref Settlement settlement)
+    public static void Postfix()
     {
-        if (customSettlementGeneration)
+        if (CustomSettlementGeneration)
         {
-            customSettlementGeneration = false;
+            CustomSettlementGeneration = false;
         }
     }
 

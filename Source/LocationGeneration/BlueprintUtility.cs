@@ -7,10 +7,10 @@ namespace LocationGeneration;
 
 public static class BlueprintUtility
 {
-    public static List<IntVec3> terrainKeys = [];
-    public static List<IntVec3> roofsKeys = [];
-    public static List<TerrainDef> terrainValues = [];
-    public static List<RoofDef> roofsValues = [];
+    private static List<IntVec3> terrainKeys = [];
+    private static List<IntVec3> roofsKeys = [];
+    private static List<TerrainDef> terrainValues = [];
+    private static List<RoofDef> roofsValues = [];
 
     public static string GetConfigPath()
     {

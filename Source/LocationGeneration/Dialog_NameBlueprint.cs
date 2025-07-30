@@ -8,12 +8,12 @@ namespace LocationGeneration;
 
 public class Dialog_NameBlueprint : Window
 {
-    public static List<IntVec3> terrainKeys = [];
-    public static List<IntVec3> roofsKeys = [];
-    public static List<TerrainDef> terrainValues = [];
-    public static List<RoofDef> roofsValues = [];
+    private static List<IntVec3> terrainKeys = [];
+    private static List<IntVec3> roofsKeys = [];
+    private static List<TerrainDef> terrainValues = [];
+    private static List<RoofDef> roofsValues = [];
     private readonly bool includePawns;
-    protected string curName;
+    private string curName;
     private bool focusedRenameField;
 
     private string name;
@@ -30,9 +30,9 @@ public class Dialog_NameBlueprint : Window
         closeOnClickedOutside = true;
     }
 
-    protected int MaxNameLength => 50;
+    private static int MaxNameLength => 50;
 
-    public override Vector2 InitialSize => new Vector2(280f, 175f);
+    public override Vector2 InitialSize => new(280f, 175f);
 
     private bool AcceptsInput => startAcceptingInputAtFrame <= Time.frameCount;
 
@@ -41,7 +41,7 @@ public class Dialog_NameBlueprint : Window
         startAcceptingInputAtFrame = Time.frameCount + 1;
     }
 
-    protected AcceptanceReport NameIsValid(string nameToCheck)
+    private static AcceptanceReport nameIsValid(string nameToCheck)
     {
         return nameToCheck.Length != 0;
     }
@@ -79,7 +79,7 @@ public class Dialog_NameBlueprint : Window
             return;
         }
 
-        var acceptanceReport = NameIsValid(curName);
+        var acceptanceReport = nameIsValid(curName);
         if (!acceptanceReport.Accepted)
         {
             if (acceptanceReport.Reason.NullOrEmpty())
@@ -92,12 +92,12 @@ public class Dialog_NameBlueprint : Window
             return;
         }
 
-        SetName(curName);
+        setName(curName);
         Find.WindowStack.TryRemove(this);
     }
 
 
-    public void GetRocks(Map map, ref List<Thing> rocks, ref List<Thing> processedRocks)
+    private static void getRocks(Map map, ref List<Thing> rocks, ref List<Thing> processedRocks)
     {
         var rocksToProcess = new List<Thing>();
         foreach (var rock in rocks)
@@ -129,11 +129,11 @@ public class Dialog_NameBlueprint : Window
 
         if (rocksToProcess.Count > 0)
         {
-            GetRocks(map, ref rocksToProcess, ref processedRocks);
+            getRocks(map, ref rocksToProcess, ref processedRocks);
         }
     }
 
-    protected void SetName(string nameToCheck)
+    private void setName(string nameToCheck)
     {
         name = GenText.SanitizeFilename(nameToCheck);
         var map = Find.CurrentMap;
@@ -219,7 +219,7 @@ public class Dialog_NameBlueprint : Window
             }
         }
 
-        GetRocks(map, ref rocks, ref processedRocks);
+        getRocks(map, ref rocks, ref processedRocks);
 
         foreach (var rock in processedRocks)
         {

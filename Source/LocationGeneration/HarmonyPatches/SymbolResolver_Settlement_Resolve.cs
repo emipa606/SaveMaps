@@ -6,19 +6,19 @@ using Verse.AI.Group;
 
 namespace LocationGeneration;
 
-[HarmonyPatch(typeof(SymbolResolver_Settlement), "Resolve")]
-public class VisitSettlementFloat
+[HarmonyPatch(typeof(SymbolResolver_Settlement), nameof(SymbolResolver_Settlement.Resolve))]
+public class SymbolResolver_Settlement_Resolve
 {
-    public static readonly FloatRange DefaultPawnsPoints = new FloatRange(1150f, 1600f);
+    private static readonly FloatRange defaultPawnsPoints = new(1150f, 1600f);
 
-    private static bool Prefix(ResolveParams rp)
+    public static bool Prefix(ResolveParams rp)
     {
         var map = BaseGen.globalSettings.map;
-        if (GetOrGenerateMapPatch.customSettlementGeneration)
+        if (SettlementUtility_AttackNow.CustomSettlementGeneration)
         {
             var faction = rp.faction ?? Find.FactionManager.RandomEnemyFaction();
-            SettlementGeneration.DoSettlementGeneration(map, GetOrGenerateMapPatch.locationData.file.FullName,
-                GetOrGenerateMapPatch.locationData.locationDef, faction, false);
+            SettlementGeneration.DoSettlementGeneration(map, SettlementUtility_AttackNow.locationData.file.FullName,
+                SettlementUtility_AttackNow.locationData.locationDef, faction, false);
 
             rp.rect = rp.rect.MovedBy(map.Center - rp.rect.CenterCell);
 
@@ -37,7 +37,7 @@ public class VisitSettlementFloat
                 resolveParams.pawnGroupMakerParams.tile = map.Tile;
                 resolveParams.pawnGroupMakerParams.faction = faction;
                 resolveParams.pawnGroupMakerParams.points =
-                    rp.settlementPawnGroupPoints ?? DefaultPawnsPoints.RandomInRange;
+                    rp.settlementPawnGroupPoints ?? defaultPawnsPoints.RandomInRange;
                 resolveParams.pawnGroupMakerParams.inhabitants = true;
                 resolveParams.pawnGroupMakerParams.seed = rp.settlementPawnGroupSeed;
             }
@@ -46,7 +46,7 @@ public class VisitSettlementFloat
             return false;
         }
 
-        GetOrGenerateMapPatch.customSettlementGeneration = false;
+        SettlementUtility_AttackNow.CustomSettlementGeneration = false;
         return true;
     }
 }

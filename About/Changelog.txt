@@ -1,5 +1,8 @@
 # Changelog for SaveMaps
 
+1.6.0 - Updated to 1.6, thanks to Taranchuk!
+
+
 1.5.1 - Steam never actually published the 1.5 update, republishing
 
 

@@ -5,11 +5,11 @@ using Verse;
 namespace LocationGeneration;
 
 [HarmonyPatch(typeof(CaravanArrivalAction_VisitSettlement), nameof(CaravanArrivalAction_VisitSettlement.Arrived))]
-public static class CaravanVisitPatch
+public static class CaravanArrivalAction_VisitSettlement_Arrived
 {
     public static void Prefix()
     {
-        GetOrGenerateMapPatch.caravanArrival = true;
+        SettlementUtility_AttackNow.CaravanArrival = true;
         Log.Message("GetOrGenerateMapPatch.caravanArrival true");
     }
 
@@ -22,8 +22,8 @@ public static class CaravanVisitPatch
                 var filePreset = SettlementGeneration.GetPresetFor(___settlement, out var locationDef);
                 if (filePreset != null)
                 {
-                    GetOrGenerateMapPatch.customSettlementGeneration = true;
-                    GetOrGenerateMapPatch.locationData = new GetOrGenerateMapPatch.LocationData
+                    SettlementUtility_AttackNow.CustomSettlementGeneration = true;
+                    SettlementUtility_AttackNow.locationData = new SettlementUtility_AttackNow.LocationData
                         { file = filePreset, locationDef = locationDef };
                 }
 

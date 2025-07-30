@@ -9,13 +9,13 @@ public class GenStep_RocksFromGridCustom : GenStep
 {
     private const int MinRoofedCellsPerGroup = 20;
 
-    public static Hilliness hilliness;
+    private const float MaxMineableValue = float.MaxValue;
 
-    private readonly float maxMineableValue = float.MaxValue;
+    public static Hilliness Hilliness;
 
     public override int SeedPart => 1182952823;
 
-    public static ThingDef RockDefAt(IntVec3 c)
+    private static ThingDef rockDefAt(IntVec3 c)
     {
         ThingDef thingDef = null;
         var num = -999999f;
@@ -76,7 +76,7 @@ public class GenStep_RocksFromGridCustom : GenStep
 
             if (caves[allCell] <= 0f)
             {
-                GenSpawn.Spawn(RockDefAt(allCell), allCell, map);
+                GenSpawn.Spawn(rockDefAt(allCell), allCell, map);
             }
 
             foreach (var threshold in list)
@@ -95,13 +95,13 @@ public class GenStep_RocksFromGridCustom : GenStep
         var toRemove = new List<IntVec3>();
         foreach (var allCell2 in map.AllCells)
         {
-            if (visited[allCell2] || !IsNaturalRoofAt(allCell2, map))
+            if (visited[allCell2] || !isNaturalRoofAt(allCell2, map))
             {
                 continue;
             }
 
             toRemove.Clear();
-            map.floodFiller.FloodFill(allCell2, x => IsNaturalRoofAt(x, map), delegate(IntVec3 x)
+            map.floodFiller.FloodFill(allCell2, x => isNaturalRoofAt(x, map), delegate(IntVec3 x)
             {
                 visited[x] = true;
                 toRemove.Add(x);
@@ -119,10 +119,10 @@ public class GenStep_RocksFromGridCustom : GenStep
 
         var genStep_ScatterLumpsMineable = new GenStep_ScatterLumpsMineable
         {
-            maxValue = maxMineableValue
+            maxValue = MaxMineableValue
         };
         var num3 = 10f;
-        switch (hilliness)
+        switch (Hilliness)
         {
             case Hilliness.Flat:
                 num3 = 4f;
@@ -146,7 +146,7 @@ public class GenStep_RocksFromGridCustom : GenStep
         map.regionAndRoomUpdater.Enabled = true;
     }
 
-    private bool IsNaturalRoofAt(IntVec3 c, Map map)
+    private static bool isNaturalRoofAt(IntVec3 c, Map map)
     {
         return c.Roofed(map) && c.GetRoof(map).isNatural;
     }

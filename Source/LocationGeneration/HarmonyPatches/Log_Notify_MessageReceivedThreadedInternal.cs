@@ -4,7 +4,7 @@ using Verse;
 namespace LocationGeneration;
 
 [HarmonyPatch(typeof(Log), nameof(Log.Notify_MessageReceivedThreadedInternal))]
-internal static class Notify_MessageReceivedThreadedInternal_Patch
+internal static class Log_Notify_MessageReceivedThreadedInternal
 {
     public static bool Prefix()
     {

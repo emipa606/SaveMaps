@@ -5,7 +5,7 @@ using Verse;
 namespace LocationGeneration;
 
 [HarmonyPatch(typeof(SymbolResolver_SinglePawn), nameof(SymbolResolver_SinglePawn.TryFindSpawnCell))]
-public static class Patch_TryFindSpawnCell
+public static class SymbolResolver_SinglePawn_TryFindSpawnCell
 {
     public static void Postfix(ResolveParams rp, out IntVec3 cell)
     {

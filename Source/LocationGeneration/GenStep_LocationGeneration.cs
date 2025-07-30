@@ -1,5 +1,5 @@
 ﻿using Verse;
-using static LocationGeneration.GetOrGenerateMapPatch;
+using static LocationGeneration.SettlementUtility_AttackNow;
 
 namespace LocationGeneration;
 

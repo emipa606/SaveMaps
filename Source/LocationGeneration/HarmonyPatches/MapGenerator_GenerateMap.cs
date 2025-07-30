@@ -4,9 +4,8 @@ using Verse;
 
 namespace LocationGeneration;
 
-[HarmonyPatch(typeof(MapGenerator))]
-[HarmonyPatch("GenerateMap")]
-public static class GenerateMapPatch
+[HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.GenerateMap))]
+public static class MapGenerator_GenerateMap
 {
     public static void Prefix(ref IntVec3 mapSize, MapParent parent)
     {
@@ -23,8 +22,8 @@ public static class GenerateMapPatch
 
     public static void Postfix(MapParent parent)
     {
-        Log.Message($"GetOrGenerateMapPatch.caravanArrival: {GetOrGenerateMapPatch.caravanArrival}");
-        if (GetOrGenerateMapPatch.caravanArrival)
+        Log.Message($"GetOrGenerateMapPatch.caravanArrival: {SettlementUtility_AttackNow.CaravanArrival}");
+        if (SettlementUtility_AttackNow.CaravanArrival)
         {
             return;
         }
