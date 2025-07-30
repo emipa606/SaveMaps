@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using System.Linq;
+using Verse;
 
 namespace LocationGeneration;
 
@@ -24,7 +25,21 @@ public class MapComponentGeneration(Map map) : MapComponent(map)
         }
 
         Log.Message($"Refog{map}");
-        FloodFillerFog.DebugRefogMap(map);
+        try
+        {
+            if (map.mapPawns.FreeColonistsSpawned.Any())
+            {
+                FloodFillerFog.DebugRefogMap(map);
+            }
+            else
+            {
+                FloodFillerFog.FloodUnfog(map.AllCells.Where(x => x.Roofed(map) is false).First(), map);
+            }
+        }
+        catch (System.Exception e)
+        {
+            Log.Error($"Error refogging map: {e}");
+        }
         reFog = false;
     }
 
