@@ -723,10 +723,6 @@ public static class SettlementGeneration
                 tilesToSpawnPawnsOnThem.Select(x => GetOffsetPosition(locationDef, x, offset)).ToHashSet();
                 return;
             }
-
-            map.waterInfo.riverOffsetMap = riverOffsetMap;
-            map.waterInfo.GenerateRiverFlowMap();
-
             tilesToSpawnPawnsOnThem.Select(x => GetOffsetPosition(locationDef, x, offset)).ToHashSet();
             return;
         }
