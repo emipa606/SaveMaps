@@ -30,7 +30,6 @@ public static class BlueprintUtility
             directoryInfo.Create();
         }
 
-        var riverOffsetMap = map.waterInfo.riverOffsetMap;
         var pawns = new List<Pawn>();
         var pawnCorpses = new List<Pawn>();
         var corpses = new List<Corpse>();
@@ -110,12 +109,6 @@ public static class BlueprintUtility
         Scribe_Values.Look(ref mapSeed, "mapSeed");
         Scribe_Values.Look(ref hilliness, "hilliness");
         Scribe_Values.Look(ref mapSize, "mapSize");
-        if (riverOffsetMap != null)
-        {
-            var riverOffsetSize = riverOffsetMap.Length;
-            Scribe_Values.Look(ref riverOffsetSize, "riverOffsetSize");
-            DataExposeUtility.LookByteArray(ref riverOffsetMap, "riverOffsetMap");
-        }
 
         Scribe.saver.FinalizeSaving();
     }

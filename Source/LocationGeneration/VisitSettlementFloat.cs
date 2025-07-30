@@ -23,7 +23,7 @@ public class VisitSettlementFloat
             rp.rect = rp.rect.MovedBy(map.Center - rp.rect.CenterCell);
 
             var singlePawnLord = rp.singlePawnLord ??
-                                 LordMaker.MakeNewLord(faction, new LordJob_DefendBase(faction, rp.rect.CenterCell),
+                                 LordMaker.MakeNewLord(faction, new LordJob_DefendBase(faction, rp.rect.CenterCell, 0),
                                      map);
             TraverseParms.For(TraverseMode.PassDoors);
             var resolveParams = rp;
