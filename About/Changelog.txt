@@ -1,5 +1,8 @@
 # Changelog for SaveMaps
 
+1.6.1 - Loading saved map with only terrain will work now
+
+
 1.6.0 - Updated to 1.6, thanks to Taranchuk!
 
 

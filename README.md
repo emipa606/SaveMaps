@@ -1,21 +1,22 @@
 # [Save Maps (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=2916523481)
 
-![Image](https://i.imgur.com/buuPQel.png)
+![Image](https://img.litet.net/logos/Info.png)
 
 Update of Jacob, Taranchuks mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=2543713263
 
-![Image](https://i.imgur.com/pufA0kM.png)
+![Image](https://img.litet.net/logos/Notice.png)
 	
-![Image](https://i.imgur.com/Z4GOv8H.png)
+![Image](https://img.litet.net/logos/OriginalDescription.png)
 
-![Image](https://i.imgur.com/p7Fv1Z6.gif)
-![Image](https://i.imgur.com/2LaNvG9.png)
+![Image](https://img.litet.net/logos/ImageNotFound.png)
+
+![Image](https://img.litet.net/2LaNvG9.png)
 
 Save Maps is a mod that allows you to save your maps at any time and load them at any time across any save.
 
 This takes the form of blueprint files saved and accessed via the Dev menu.
-![Image](https://i.imgur.com/HSLYZkE.png)
+![Image](https://img.litet.net/HSLYZkE.png)
 
 Have you ever generated a really cool map and thought it was a shame that you only get to use it once for one save with one base and one story, and then never again?
 
@@ -26,7 +27,7 @@ Do you only like to play on a certain type of map, and spend way too much time w
 How about your bases? Have you ever built a pretty cool base and wished that you could use the same base but on a different map or a different save?
 
 If you answered yes to any of these questions, then you and I have experienced similar problems, and now we have a solution.
-![Image](https://i.imgur.com/74MXZKe.png) 
+![Image](https://img.litet.net/74MXZKe.png) 
 
 - Save Maps saves map blueprints in the game's configuration files location so that they will NEVER be touched or altered by the Steam Workshop. You will NEVER lose your map files as a result of weirdness with Workshop updates, or if you were to accidentally unsubscribe from the mod.
 
@@ -42,7 +43,7 @@ If you answered yes to any of these questions, then you and I have experienced s
 
 - If all you want is a barebones untouched map to save and play on different saves with different colonists and different stories, this is completely achievable as well. 
 
-![Image](https://i.imgur.com/XTFybvq.png)
+![Image](https://img.litet.net/XTFybvq.png)
 
 [quote]Your saved maps will be in the following location:
 C:\Users\[your username]\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config\SavedMapPresets[/quote]
@@ -71,25 +72,25 @@ This option will load a saved blueprint, but will not carry over anything from t
 
 <ins>**Load Blueprint (override, except colonists):**</ins>
 This option will load a saved blueprint, and will only carry over your colonists but no items to the new map. 
-![Image](https://i.imgur.com/ConbpFq.png)
+![Image](https://img.litet.net/ConbpFq.png)
 
 *1.3?!?*
 -Finally done
-![Image](https://i.imgur.com/ECjBtjO.png)
+![Image](https://img.litet.net/ECjBtjO.png)
 
 Taranchuk - All code
 The Duck Gamer - Workshop art
 HandsomeAwkward - Playtesting, workshop description
 
-[![Image](https://i.imgur.com/cfoFEMA.png)](https://discord.gg/7befJWr9xS)
+[![Image](https://img.litet.net/cfoFEMA.png)](https://discord.gg/7befJWr9xS)
 	
-![Image](https://i.imgur.com/PwoNOj4.png)
+![Image](https://img.litet.net/logos/ReportingIssues.png)
 
 
 
 -  See if the the error persists if you just have this mod and its requirements active.
 -  If not, try adding your other mods until it happens again.
--  Post your error-log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
+-  Always post your log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404)
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
@@ -97,4 +98,4 @@ HandsomeAwkward - Playtesting, workshop description
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/SaveMaps?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2916523481) | tags:  map transfer
+[![Image](https://img.shields.io/github/v/release/emipa606/SaveMaps?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2916523481) | tags: map transfer

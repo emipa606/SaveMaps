@@ -92,6 +92,11 @@ public static class SettlementGeneration
 
     private static IntVec3 getCellCenterFor(List<IntVec3> cells)
     {
+        if (cells is null || cells.Count == 0)
+        {
+            return IntVec3.Invalid;
+        }
+
         var xAverages = cells.OrderBy(x => x.x);
         var xAverage = xAverages.ElementAt(xAverages.Count() / 2).x;
         var zAverages = cells.OrderBy(x => x.z);
@@ -322,6 +327,11 @@ public static class SettlementGeneration
             var cells = new List<IntVec3>(tilesToSpawnPawnsOnThem);
             cells.AddRange(buildings.Select(x => x.Position).ToList());
             var centerCell = getCellCenterFor(cells);
+            if (!centerCell.IsValid)
+            {
+                centerCell = map.Center;
+            }
+
             var offset = locationDef is { disableCenterCellOffset: false }
                 ? map.Center - centerCell
                 : IntVec3.Zero;

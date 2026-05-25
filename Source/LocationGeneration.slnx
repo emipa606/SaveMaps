@@ -6,4 +6,7 @@
     <BuildType Name="Release" />
   </Configurations>
   <Project Path="LocationGeneration/LocationGeneration.csproj" />
+  <Folder Name="/XML/About/">
+    <File Path="../About/about.xml" />
+  </Folder>
 </Solution>
