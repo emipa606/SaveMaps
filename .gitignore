@@ -238,3 +238,8 @@ lastrun.log
 
 # Continue
 .continue
+build_output.txt
+
+# SonarQube
+.sonarlint
+.sonarqube

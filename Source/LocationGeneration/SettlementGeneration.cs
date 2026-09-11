@@ -530,12 +530,9 @@ public static class SettlementGeneration
 
             if (locationDef is { moveThingsToShelves: true })
             {
-                foreach (var item in map.listerThings.AllThings)
+                foreach (var item in map.listerThings.AllThings.Where(item => item.IsForbidden(Faction.OfPlayer)))
                 {
-                    if (item.IsForbidden(Faction.OfPlayer))
-                    {
-                        tryDistributeTo(item, map, containers, faction != Faction.OfPlayer);
-                    }
+                    tryDistributeTo(item, map, containers, faction != Faction.OfPlayer);
                 }
             }
 
@@ -732,14 +729,6 @@ public static class SettlementGeneration
             mapComp.path = null;
             SettlementUtility_AttackNow.CaravanArrival = false;
             map.regionAndRoomUpdater.Enabled = true;
-
-            if (riverOffsetSize <= 0)
-            {
-                tilesToSpawnPawnsOnThem.Select(x => getOffsetPosition(locationDef, x, offset)).ToHashSet();
-                return;
-            }
-
-            tilesToSpawnPawnsOnThem.Select(x => getOffsetPosition(locationDef, x, offset)).ToHashSet();
             return;
         }
         catch (Exception ex)

@@ -151,7 +151,7 @@ public class GenStep_RocksFromGridCustom : GenStep
         return c.Roofed(map) && c.GetRoof(map).isNatural;
     }
 
-    private class RoofThreshold
+    private sealed class RoofThreshold
     {
         public float minGridVal;
         public RoofDef roofDef;

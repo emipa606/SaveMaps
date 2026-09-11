@@ -9,12 +9,22 @@ public static class CaravanArrivalAction_VisitSettlement_Arrived
 {
     public static void Prefix()
     {
+        if (LocationGenerationMod.Settings is null || !LocationGenerationMod.Settings.allowVisitingSettlements)
+        {
+            return;
+        }
+
         SettlementUtility_AttackNow.CaravanArrival = true;
         Log.Message("GetOrGenerateMapPatch.caravanArrival true");
     }
 
     public static void Postfix(Caravan caravan, Settlement ___settlement)
     {
+        if (LocationGenerationMod.Settings is null || !LocationGenerationMod.Settings.allowVisitingSettlements)
+        {
+            return;
+        }
+
         if (!___settlement.HasMap)
         {
             LongEventHandler.QueueLongEvent(delegate

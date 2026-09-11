@@ -1,5 +1,9 @@
 # Changelog for SaveMaps
 
+1.6.2 - Moved the undocumented visit settlment feature behind a mod-option
+Used DeepL to update translations for ChineseSimplified, French, German
+
+
 1.6.1 - Loading saved map with only terrain will work now
 
 

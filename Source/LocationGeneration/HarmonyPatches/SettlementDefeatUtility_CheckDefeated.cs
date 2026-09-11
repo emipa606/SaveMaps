@@ -22,7 +22,7 @@ public static class SettlementDefeatUtility_CheckDefeated
         return true;
     }
 
-    private static bool Prefix(Settlement factionBase)
+    public static bool Prefix(Settlement factionBase)
     {
         return !factionBase.HasMap || isDefeated(factionBase.Map, factionBase.Faction);
     }

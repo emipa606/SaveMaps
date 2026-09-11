@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -115,9 +116,9 @@ public class Dialog_NameBlueprint : Window
                     continue;
                 }
 
-                foreach (var thing in things)
+                foreach (var thing in things.Where(thing => thing is Mineable))
                 {
-                    if (thing is Mineable && !processedRocks.Contains(thing))
+                    if (!processedRocks.Contains(thing))
                     {
                         rocksToProcess.Add(thing);
                     }
@@ -209,12 +210,9 @@ public class Dialog_NameBlueprint : Window
                     continue;
                 }
 
-                foreach (var thing2 in things2)
+                foreach (var thing2 in things2.Where(thing2 => thing2 is Mineable))
                 {
-                    if (thing2 is Mineable)
-                    {
-                        rocks.Add(thing2);
-                    }
+                    rocks.Add(thing2);
                 }
             }
         }

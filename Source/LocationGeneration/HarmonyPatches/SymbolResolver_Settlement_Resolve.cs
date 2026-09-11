@@ -7,7 +7,7 @@ using Verse.AI.Group;
 namespace LocationGeneration;
 
 [HarmonyPatch(typeof(SymbolResolver_Settlement), nameof(SymbolResolver_Settlement.Resolve))]
-public class SymbolResolver_Settlement_Resolve
+public static class SymbolResolver_Settlement_Resolve
 {
     private static readonly FloatRange defaultPawnsPoints = new(1150f, 1600f);
 
