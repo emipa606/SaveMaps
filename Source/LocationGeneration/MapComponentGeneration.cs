@@ -25,7 +25,6 @@ public class MapComponentGeneration(Map map) : MapComponent(map)
             return;
         }
 
-        Log.Message($"Refog{map}");
         try
         {
             if (map.mapPawns.FreeColonistsSpawned.Any())

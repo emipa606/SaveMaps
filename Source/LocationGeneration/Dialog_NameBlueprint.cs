@@ -116,12 +116,10 @@ public class Dialog_NameBlueprint : Window
                     continue;
                 }
 
-                foreach (var thing in things.Where(thing => thing is Mineable))
+                var list = processedRocks;
+                foreach (var thing in things.Where(thing => thing is Mineable && !list.Contains(thing)))
                 {
-                    if (!processedRocks.Contains(thing))
-                    {
-                        rocksToProcess.Add(thing);
-                    }
+                    rocksToProcess.Add(thing);
                 }
             }
 

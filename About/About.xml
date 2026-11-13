@@ -10,6 +10,7 @@
     <li>1.4</li>
     <li>1.5</li>
     <li>1.6</li>
+    <li>1.7</li>
   </supportedVersions>
   <modDependencies>
     <li>
@@ -25,6 +26,9 @@
   <description>[img]https://img.litet.net/logos/Info.png[/img]
 Update of Jacob, Taranchuks mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=2543713263
+
+The mod also has a "Visit settlement" feature, where caravans will visit the actual map of a settlement instead of interacting via the world map. 
+As I cant find any explanation of why its in the mod Ive put it behind a mod-option instead.
 
 [img]https://img.litet.net/logos/Notice.png[/img]
 
@@ -119,5 +123,5 @@ HandsomeAwkward - Playtesting, workshop description
 [/list] 
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/changelog/2916523481][img]https://img.shields.io/github/v/release/emipa606/SaveMaps?label=latest%20version&amp;style=plastic&amp;color=9f1111&amp;labelColor=black[/img][/url] | map transfer</description>
-  <modVersion IgnoreIfNoMatchingField="True">1.6.2</modVersion>
+  <modVersion IgnoreIfNoMatchingField="True">1.7.0</modVersion>
 </ModMetaData>

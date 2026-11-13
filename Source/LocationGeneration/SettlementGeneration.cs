@@ -232,7 +232,8 @@ public static class SettlementGeneration
                     fogGridField.SetValue(map.fogGrid, new NativeArray<bool>[cellIndices.NumGridCells]);
                 }
 
-                var fogGrid = (NativeArray<bool>)fogGridField.GetValue(map.fogGrid);
+                var fogGrid = (NativeArray<bool>)(fogGridField.GetValue(map.fogGrid) ??
+                                                  new NativeArray<bool>[cellIndices.NumGridCells]);
                 foreach (var allCell in map.AllCells)
                 {
                     fogGrid[cellIndices.CellToIndex(allCell)] = true;
@@ -421,7 +422,6 @@ public static class SettlementGeneration
                             continue;
                         }
 
-                        Log.Message($"2 Despawning: {thingsToDestroy[i]}");
                         thingsToDestroy[i].DeSpawn(DestroyMode.WillReplace);
                     }
                     catch (Exception ex)
@@ -669,7 +669,6 @@ public static class SettlementGeneration
                 {
                     for (var i = map.mapPawns.PawnsInFaction(faction).Count - 1; i >= 0; i--)
                     {
-                        Log.Message($"3 Despawning: {thingsToDestroy[i]}");
                         map.mapPawns.PawnsInFaction(faction)[i].DeSpawn();
                     }
                 }

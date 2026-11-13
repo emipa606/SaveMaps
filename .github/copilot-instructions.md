@@ -1,54 +1,106 @@
-# GitHub Copilot Instructions for "Save Maps (Continued)" Mod
+# GitHub Copilot Instructions for Save Maps (Continued) Mod
 
 ## Mod Overview and Purpose
-
-The "Save Maps (Continued)" mod is designed to enhance the player experience in RimWorld by allowing users to save and load map blueprints across different saves. The core function of the mod is to provide players with greater flexibility and reusability of their maps and bases. Whether you want to share a map with others, reuse a favorite base design, or ensure that your map is never lost due to subscription changes, this mod is here to solve these issues.
+Save Maps (Continued) is a mod that allows players to save and load map blueprints within RimWorld. The mod provides various options for saving different aspects of the map, including structures, items, and colonists. This functionality enables players to share maps, reuse their creations across different saves, and avoid losing valuable map blueprints due to Workshop updates.
 
 ## Key Features and Systems
+### Save Options
+1. **Save Everything**: Saves the entire map, including items and colonists.
+2. **Save Everything w/o Colonists**: Saves the entire map, excluding colonists.
+3. **Save in Home Area with Colonists**: Saves structures within the home area, including colonists.
+4. **Save in Home Area w/o Colonists**: Saves structures within the home area, excluding colonists.
 
-- **Blueprint System**: Save entire maps, including all player-placed structures, items, and colonists, as blueprint files.
-- **Dev Menu Integration**: Access the mod's features via a new category in RimWorld's Dev Mode.
-- **Future-Proofing**: Loaded maps can dynamically adapt to include content from other mods, ensuring compatibility with future updates and expansions.
-- **Customizable Saving Options**: Save maps with or without colonists, save selected home areas, or save everything on the map.
-- **Map Resizing**: Automatically adjust the loaded map size to prevent issues with map dimension mismatches.
-- **Persistency**: Blueprint files are saved in a location that won't be affected by Steam Workshop changes.
+### Load Options
+1. **Load Blueprint**: Loads a saved blueprint and carries over items and colonists.
+2. **Load Blueprint (override)**: Loads a saved blueprint and does not carry over anything from the current map.
+3. **Load Blueprint (override, except colonists)**: Loads a saved blueprint and carries over only colonists.
+
+### Additional Features
+- Automatically adjusts map size during load.
+- Saves map blueprints in the game's configuration files location, ensuring they are safe from Workshop updates.
+- Loads maps with mod-added ores.
 
 ## Coding Patterns and Conventions
+### C# Code Structure
+- **Namespace**: All classes are part of the `Mlie.SaveMaps` namespace.
+- **Directory Structure**:
+  - **LocationGeneration**: Contains classes for handling map generation and blueprint actions.
+  - **HarmonyPatches**: Contains Harmony patches for modifying existing RimWorld behavior.
 
-- **C# Structure**: The mod uses well-defined C# classes such as `GenStep_LocationGeneration` for map generation steps.
-- **Separation of Concerns**: Different concerns like map generation and loading are isolated into separate classes and files for maintainability.
-- **Descriptive Naming**: Class and method names are descriptive and follow CamelCase convention, e.g., `SaveEverything`, `LoadBlueprint`.
+### Class and Method Naming
+- **Classes**: PascalCase (e.g., `Actions`, `CaravanArrivalAction_VisitSite_Arrived`).
+- **Methods**: PascalCase, descriptive (e.g., `CreateBlueprint`, `LoadBlueprint`).
+
+### Code Style
+- Use of `async` and `await` for asynchronous operations.
+- Proper exception handling.
+- Logging for debugging and error reporting.
 
 ## XML Integration
-
-- The mod includes an `About.xml` file, which contains metadata about the mod such as its name, author, and package ID. This file ensures the mod is correctly recognized by RimWorld.
+### About.xml
+- Contains metadata about the mod, including the author, display name, and package ID.
+- Example:
+  xml
+  <About>
+    <ModIdentifier>Mlie.SaveMaps</ModIdentifier>
+    <Name>Save Maps (Continued)</Name>
+    <Author>Jacob, Taranchuk</Author>
+    <Description>
+      Update of Jacob, Taranchuks mod. Allows players to save and load map blueprints.
+    </Description>
+    <Version>1.3</Version>
+  </About>
+  
 
 ## Harmony Patching
+### Example Harmony Patches
+#### CaravanArrivalAction_VisitSite_Arrived.cs
+csharp
+[HarmonyPatch(typeof(CaravanArrivalAction_VisitSite_Arrived), "Arrived")]
+public static class CaravanArrivalAction_VisitSite_Arrived_Patch
+{
+    [Prefix]
+    public static bool Prefix(Caravan caravan, Map map, CaravanArrivalAction_VisitSite_Arrived __instance)
+    {
+        // Custom logic before the original method runs
+        return true;
+    }
 
-The mod leverages the Harmony library for method patching to extend or modify RimWorld's vanilla functionality. Key patches include:
+    [Postfix]
+    public static void Postfix(Caravan caravan, Map map, CaravanArrivalAction_VisitSite_Arrived __instance)
+    {
+        // Custom logic after the original method runs
+    }
+}
 
-- **Map Generation**: Hooks into the map generation process to support blueprint-based map loading.
-  - Files: `MapGenerator_GenerateMap.cs`
-- **Caravan Arrival**: Adjustments to caravan behavior upon reaching a site with a saved map.
-  - Files: `CaravanArrivalAction_VisitSite_Arrived.cs`
-- **Logging**: Enhanced logging support for tracking messages during asynchronous operations.
-  - Files: `Log_Notify_MessageReceivedThreadedInternal.cs`
+
+#### Log_Notify_MessageReceivedThreadedInternal.cs
+csharp
+[HarmonyPatch(typeof(Log), "Notify_MessageReceivedThreadedInternal")]
+public static class Log_Notify_MessageReceivedThreadedInternal_Patch
+{
+    [Prefix]
+    public static bool Prefix(MessageTypeDef type, string text)
+    {
+        // Custom logic before the original method runs
+        return true;
+    }
+}
+
 
 ## Suggestions for Copilot
+1. **Code Generation**: Generate methods for saving and loading different aspects of the map.
+2. **Harmony Patches**: Suggest Harmony patches for modifying existing RimWorld behavior.
+3. **XML Generation**: Generate XML metadata files for the mod.
+4. **Error Handling**: Suggest best practices for exception handling and logging.
+5. **Code Review**: Review existing code for potential improvements and optimizations.
 
-To enhance the coding experience with GitHub Copilot while developing or extending this mod, consider the following suggestions:
+## Contribution Guidelines
+- **Report Bugs**: Use the Discord channel for error reporting.
+- **Solve Problems**: Post solutions to problems in the GitHub repository.
+- **Sort Mods**: Use RimSort to sort your mods for better compatibility.
 
-1. **Autocomplete for Method Signatures**: Copilot can autocomplete commonly used method signatures for Harmony patches, especially those involving Prefix and Postfix methods.
-
-2. **Pattern Recognition**: Utilize Copilot's ability to recognize existing coding patterns within the project to suggest new method implementations that align with current practices.
-
-3. **Error Handling Snippets**: Ensure that Copilot suggests robust error handling snippets, especially when dealing with file operations and blueprint loading.
-
-4. **XML Tag Suggestions**: While editing XML files, Copilot can assist in suggesting correct tag structures and attributes, which can streamline the process of updating mod metadata.
-
-5. **Adaptive Refactoring**: Leverage Copilot’s refactoring suggestions to maintain and improve code quality as new features are introduced or existing ones are enhanced.
-
-By adhering to these guidelines and leveraging Copilot's capabilities, you can ensure that the Save Maps mod remains robust, maintainable, and user-friendly for the RimWorld community.
+By following these guidelines, contributors can effectively utilize GitHub Copilot to enhance the Save Maps (Continued) mod and improve the overall player experience.
 
 ## Project Solution Guidelines
 - Relevant mod XML files are included as Solution Items under the solution folder named XML, these can be read and modified from within the solution.
@@ -62,4 +114,6 @@ By adhering to these guidelines and leveraging Copilot's capabilities, you can e
 ## Hard rules (must follow)
 - Do NOT run commands that modify the repo (no git commit, git apply, dotnet format) unless explicitly asked.
 - Prefer minimal reads: read only the smallest code region needed (around the suspicious lines).
+- When mentioning SonarQube issues, automatically use the SonarQube MCP service to fetch and address issues instead of making inferred fixes without querying SonarQube first.
+- When mentioning the rimworld log, automatically use the Rimworld MCP service to fetch the log.
 

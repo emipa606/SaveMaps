@@ -5,6 +5,9 @@
 Update of Jacob, Taranchuks mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=2543713263
 
+The mod also has a "Visit settlement" feature, where caravans will visit the actual map of a settlement instead of interacting via the world map. 
+As I cant find any explanation of why its in the mod Ive put it behind a mod-option instead.
+
 ![Image](https://img.litet.net/logos/Notice.png)
 	
 ![Image](https://img.litet.net/logos/OriginalDescription.png)

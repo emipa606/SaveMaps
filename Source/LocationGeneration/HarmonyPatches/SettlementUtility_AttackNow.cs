@@ -5,7 +5,7 @@ using RimWorld.Planet;
 namespace LocationGeneration;
 
 [HarmonyPatch(typeof(SettlementUtility), "AttackNow")]
-public class SettlementUtility_AttackNow
+public static class SettlementUtility_AttackNow
 {
     public static bool CustomSettlementGeneration;
     public static bool CaravanArrival;
